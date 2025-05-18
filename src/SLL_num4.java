@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 class SLLNode<E> {
@@ -62,6 +61,27 @@ class SLL<E> {
             System.out.println("Dadenot jazol e null");
         }
     }
+    public void insertBefore(E o, SLLNode<E> before) {
+
+        if (first != null) {
+            SLLNode<E> tmp = first;
+            if(first==before){
+                this.insertFirst(o);
+                return;
+            }
+            //ako first!=before
+            while (tmp.succ != before && tmp.succ!=null)
+                tmp = tmp.succ;
+            if (tmp.succ == before) {
+                tmp.succ = new SLLNode<E>(o, before);;
+            } else {
+                System.out.println("Elementot ne postoi vo listata");
+            }
+        } else {
+            System.out.println("Listata e prazna");
+        }
+    }
+
     public void insertLast(E o) {
         if (first != null) {
             SLLNode<E> tmp = first;
@@ -75,40 +95,50 @@ class SLL<E> {
     public SLLNode<E> getFirst() {
         return first;
     }
+
 }
-public class SLL_num3{
+
+
+public class SLL_num4 {
     public static void main(String[] args) {
+        SLL<String> linkedlist = new SLL<>();
         Scanner scanner = new Scanner(System.in);
-        SLL<String> linkedList = new SLL<>();
         int n = scanner.nextInt();
         for(int i=0;i<=n;i++)
         {
             String item = scanner.nextLine();
             if(i==0)
             {
-                linkedList.getFirst();
+                linkedlist.getFirst();
             }
             else
             {
-                linkedList.insertLast(item);
+                linkedlist.insertLast(item);
             }
         }
         int l = scanner.nextInt();
-        System.out.print(linkedList);
+        System.out.print(linkedlist);
         System.out.println();
-        SLLNode<String> node = linkedList.getFirst();
-       while(node != null)
-       {
-        if(node.element.length()==l)
+        SLLNode<String> node = linkedlist.getFirst();
+        while(node != null && node == linkedlist.getFirst() && node.element.length() > l)
         {
-            linkedList.insertAfter(("Target"), node);
-            node = node.succ.succ;
+           linkedlist.insertFirst("Outlier");
+           node = linkedlist.getFirst().succ;
         }
-        else
+        while(node != null && node.succ != null)
         {
-            node=node.succ;
+            if(node.succ.element.length()>l)
+            {
+                linkedlist.insertAfter("Outlier", node);
+                node=node.succ.succ;
+            }
+            else
+            {
+                node=node.succ;
+            }
         }
-       }
-       System.out.println(linkedList);
+
+
+        System.out.println(linkedlist);
     }
 }

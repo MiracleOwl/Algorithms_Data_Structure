@@ -1,5 +1,5 @@
-
 import java.util.Scanner;
+import javax.lang.model.element.Element;
 
 class SLLNode<E> {
     protected E element;
@@ -20,16 +20,6 @@ class SLL<E> {
 
     public void deleteList() {
         first = null;
-    }
-
-    public int size() {
-        int listSize = 0;
-        SLLNode<E> tmp = first;
-        while(tmp != null) {
-            listSize++;
-            tmp = tmp.succ;
-        }
-        return listSize;
     }
 
     @Override
@@ -62,6 +52,27 @@ class SLL<E> {
             System.out.println("Dadenot jazol e null");
         }
     }
+    public void insertBefore(E o, SLLNode<E> before) {
+
+        if (first != null) {
+            SLLNode<E> tmp = first;
+            if(first==before){
+                this.insertFirst(o);
+                return;
+            }
+            //ako first!=before
+            while (tmp.succ != before && tmp.succ!=null)
+                tmp = tmp.succ;
+            if (tmp.succ == before) {
+                tmp.succ = new SLLNode<E>(o, before);;
+            } else {
+                System.out.println("Elementot ne postoi vo listata");
+            }
+        } else {
+            System.out.println("Listata e prazna");
+        }
+    }
+
     public void insertLast(E o) {
         if (first != null) {
             SLLNode<E> tmp = first;
@@ -75,40 +86,53 @@ class SLL<E> {
     public SLLNode<E> getFirst() {
         return first;
     }
+
+    public SLLNode<E> find(E o) {
+        if (first != null) {
+            SLLNode<E> tmp = first;
+            while (!tmp.element.equals(o) && tmp.succ != null)
+                tmp = tmp.succ;
+            if (tmp.element.equals(o)) {
+                return tmp;
+            } else {
+                System.out.println("Elementot ne postoi vo listata");
+            }
+        } else {
+            System.out.println("Listata e prazna");
+        }
+        return null;
+    }
 }
-public class SLL_num3{
+public class SLL_num5 {
     public static void main(String[] args) {
+        SLL<String> linkedlist = new SLL<>();
         Scanner scanner = new Scanner(System.in);
-        SLL<String> linkedList = new SLL<>();
+        
         int n = scanner.nextInt();
         for(int i=0;i<=n;i++)
         {
             String item = scanner.nextLine();
             if(i==0)
             {
-                linkedList.getFirst();
+                linkedlist.getFirst();
             }
             else
             {
-                linkedList.insertLast(item);
+                linkedlist.insertLast(item);
             }
         }
-        int l = scanner.nextInt();
-        System.out.print(linkedList);
+        int l=scanner.nextInt();
+        System.out.print(linkedlist);
         System.out.println();
-        SLLNode<String> node = linkedList.getFirst();
-       while(node != null)
-       {
-        if(node.element.length()==l)
+
+        SLLNode<String> node = linkedlist.getFirst();
+
+        while(node!=null)
         {
-            linkedList.insertAfter(("Target"), node);
-            node = node.succ.succ;
+            if(node.element.length()==l)
+            {
+                linkedlist.insertLast(node.element);
+            }
         }
-        else
-        {
-            node=node.succ;
-        }
-       }
-       System.out.println(linkedList);
     }
 }
