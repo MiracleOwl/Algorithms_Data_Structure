@@ -1,6 +1,5 @@
+import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.concurrent.ConcurrentHashMap;
-import javax.lang.model.element.Element;
 
 class SLLNode<E> {
     protected E element;
@@ -178,35 +177,36 @@ class SLL<E> {
     }
 }
 
-public class SLL_num5 {
-    public static void main(String[] args) {
-        SLL<String> linkedlist = new SLL<>();
-        Scanner scanner = new Scanner(System.in);
-        
-        int n = scanner.nextInt();
-        scanner.nextLine();
-        for(int i=0;i<n;i++)
-        {
-            String item = scanner.nextLine();
-            linkedlist.insertLast(item);
-        }
-        int l=scanner.nextInt();
-        System.out.print(linkedlist);
-        System.out.println();
 
-        SLLNode<String> node = linkedlist.getFirst();
-    
-        for(int i=0;i<n;i++)
+public class SLL_num2{
+    public static void main(String[] args) {
+        SLL<String> linkedList = new SLL<>();
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        for (int i = 0; i <= n; i++) {
+            String item = scanner.nextLine();
+            
+            if(i==0)
+            {
+                linkedList.getFirst();
+            }
+            else{
+            linkedList.insertLast(item);
+            }
+            
+        }
+        int l = scanner.nextInt();
+        System.out.print(linkedList);
+        System.out.println();
+        SLLNode<String> node = linkedList.getFirst();
+        while(node!=null)
         {
-            SLLNode<String> temp = node.succ;
             if(node.element.length()==l)
             {
-                String val = node.element;
-                linkedlist.delete(node);
-                linkedlist.insertLast(val);
+                System.out.println(node.element);
+                break;
             }
-            node=temp;
+            node = node.succ;
         }
-        System.out.println(linkedlist);
     }
 }

@@ -1,4 +1,3 @@
-import java.util.LinkedList;
 import java.util.Scanner;
 
 class SLLNode<E> {
@@ -52,15 +51,6 @@ class SLL<E> {
         ins.succ = first;
         //SLLNode<E> ins = new SLLNode<E>(o, first);
         first = ins;
-    }
-
-    public void insertAfter(E o, SLLNode<E> node) {
-        if (node != null) {
-            SLLNode<E> ins = new SLLNode<E>(o, node.succ);
-            node.succ = ins;
-        } else {
-            System.out.println("Dadenot jazol e null");
-        }
     }
     public void insertBefore(E o, SLLNode<E> before) {
 
@@ -130,83 +120,48 @@ class SLL<E> {
     public SLLNode<E> getFirst() {
         return first;
     }
-
-    public SLLNode<E> find(E o) {
-        if (first != null) {
-            SLLNode<E> tmp = first;
-            while (!tmp.element.equals(o) && tmp.succ != null)
-                tmp = tmp.succ;
-            if (tmp.element.equals(o)) {
-                return tmp;
-            } else {
-                System.out.println("Elementot ne postoi vo listata");
-            }
-        } else {
-            System.out.println("Listata e prazna");
-        }
-        return null;
-    }
-
-    public void merge (SLL<E> in){
-        if (first != null) {
-            SLLNode<E> tmp = first;
-            while(tmp.succ != null)
-                tmp = tmp.succ;
-            tmp.succ = in.getFirst();
-        }
-        else{
-            first = in.getFirst();
-        }
-    }
-
-    public void mirror() {
-        if (first != null) {
-            //m=nextsucc, p=tmp,q=next
-            SLLNode<E> tmp = first;
-            SLLNode<E> newsucc = null;
-            SLLNode<E> next;
-
-            while(tmp != null){
-                next = tmp.succ;
-                tmp.succ = newsucc;
-                newsucc = tmp;
-                tmp = next;
-            }
-            first = newsucc;
-        }
-    }
 }
 
 
-public class probno{
-    public static void main(String[] args) {
-        SLL<String> linkedList = new SLL<>();
+
+public class SLL_num6 {
+    public static void main(String[] args)
+    {
+        SLL<String> linkedlist = new SLL<>();
         Scanner scanner = new Scanner(System.in);
+        
         int n = scanner.nextInt();
-        for (int i = 0; i <= n; i++) {
+        scanner.nextLine();
+        for(int i=0;i<n;i++)
+        {
             String item = scanner.nextLine();
-            
-            if(i==0)
-            {
-                linkedList.getFirst();
-            }
-            else{
-            linkedList.insertLast(item);
-            }
+            linkedlist.insertLast(item);
             
         }
         int l = scanner.nextInt();
-        System.out.print(linkedList);
-        System.out.println();
-        SLLNode<String> node = linkedList.getFirst();
-        while(node!=null)
+        System.out.println(linkedlist);
+
+        SLLNode<String> node = linkedlist.getFirst();
+        SLLNode<String> lastMatch = null;
+
+        while( node!= null)
         {
             if(node.element.length()==l)
             {
-                System.out.println(node.element);
-                break;
+                lastMatch=node;
             }
             node = node.succ;
+        }
+        if(lastMatch == null)
+        {
+            System.out.println(linkedlist.toString());
+        }
+        else
+        {
+            String val= lastMatch.element;
+            linkedlist.delete (lastMatch);
+            linkedlist.insertFirst(val);
+            System.out.print(linkedlist.toString());
         }
     }
 }
