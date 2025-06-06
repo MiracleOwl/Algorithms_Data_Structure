@@ -198,28 +198,44 @@ public class DLL_num3 {
         scanner.nextLine();
         for(int i=0;i<n;i++)
         {
-            int item = scanner.nextInt();
-            linkedlist.insertLast(item);
+            linkedlist.insertLast(scanner.nextInt());
         }
         int m = scanner.nextInt();
+
         int k = scanner.nextInt();
+
         System.out.println(linkedlist);
 
-        DLLNode<Integer> node = linkedlist.find(m);
-        if( node !=null)
+        DLLNode<Integer> curr = linkedlist.find(m);
+
+        if( curr ==null)
         {
-            linkedlist.delete(node);
-            DLLNode<Integer> temp = node;
-            for(int i=0;i<k && temp.pred!=null;i++)
+            System.out.println(linkedlist);
+            return;
+        }
+        DLLNode<Integer> temp = curr;
+        
+        boolean prekoRed = false;
+
+        while(k-- > 0)
+        {
+            if(temp.pred ==null)
             {
-                temp = temp.pred;
+                temp =linkedlist.getLast();
+                prekoRed = true;
+                continue;
             }
-            
-            if (temp.pred == null) {
-                linkedlist.insertFirst(node.element);
-            } else {
-                linkedlist.insertBefore(node.element, temp);
-            }
+            temp = temp.pred;
+        }
+        if(!prekoRed)
+        {
+            linkedlist.insertBefore(curr.element, temp);
+            linkedlist.delete(curr);
+        }
+        else
+        {
+            linkedlist.insertAfter(curr.element, temp);
+            linkedlist.delete(curr);
         }
         System.out.println(linkedlist);
     }
