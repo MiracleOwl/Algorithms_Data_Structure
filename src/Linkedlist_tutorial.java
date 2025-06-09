@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class zad3_listi{
+public class Linkedlist_tutorial{
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
